@@ -1,0 +1,67 @@
+﻿@model PageItems<Ciqual.Models.Aliment>
+
+@{
+    ViewData["Title"] = "ListByFirstLetter";
+}
+
+<h1>ListByFirstLetter</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<p>
+    @for (char c = 'A'; c <= 'Z'; c++)
+    {
+        <a asp-action="ListByFirstLetter" asp-route-lettre="@c.ToString()">@c</a>
+    }
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().IdFamilleNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdFamilleNavigation.Nom)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdAliment">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdAliment">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdAliment">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var etatPrecedent = !Model.HasPreviousPage ? "disabled" : "";
+    var etatsuivant = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="ListByFirstLetter"
+      asp-route-lettre="@ViewBag.lettre"
+   asp-route-page="@(Model.PageIndex - 1)"
+   class="btn btn-default @etatPrecedent">
+    Précédent
+</a>
+<a asp-action="ListByFirstLetter"
+   asp-route-lettre="@ViewBag.lettre"
+   asp-route-page="@(Model.PageIndex + 1)"
+   class="btn btn-default @etatsuivant">
+    Suivant
+</a>
+

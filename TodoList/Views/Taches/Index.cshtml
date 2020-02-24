@@ -1,0 +1,110 @@
+﻿@model IEnumerable<TodoList.Models.Tache>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+@{
+
+    if ((int)(ViewData["tacheTerminee"]) <= 1)
+    {
+        <p><strong>Tache Terminée : </strong>@ViewData["tacheTerminee"] sur @ViewData["totaltache"]</p>
+
+    }
+    else
+    {
+        <p><strong>Taches Terminées : </strong>@ViewData["tacheTerminee"] sur @ViewData["totaltache"]</p>
+    }
+}
+
+<a asp-action="InitSaisie">Pour creer des taches groupes</a>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<p>
+    <a asp-action="Create" data-toggle="modal" data-target="#exampleModal">Create Modale</a>
+</p>
+
+<form asp-controller="Taches" asp-action="Index" method="get">
+    <p>
+        <span>Description contient</span>
+        <input name="TextSaisi" value="@ViewBag.Recherche"/>
+        <select name="Etat" asp-items="@ViewBag.selection">
+        </select>
+        <input type="submit" value="Filtrer" />
+
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateEcheance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Terminee)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.Id!=0)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCreation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateEcheance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Terminee)
+                    </td>
+                    <td>
+
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <partial name="_FormCreate" model="@Model.Last()" />
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="formCreateTask" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" form="formCreateTask" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

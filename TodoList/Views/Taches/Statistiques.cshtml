@@ -1,0 +1,41 @@
+﻿@{
+    @model TodoList.Models.StatistiquesViewModel
+    ViewData["Title"] = "Statistiques";
+}
+@section header{}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.NbrTachesTerminee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.NbrTachesEnCours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.NbrTachesRetard)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => Model.DelaiMoyen)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => Model.NbrTachesTerminee)
+            </td>
+            <td>
+                @Html.DisplayFor(model => Model.NbrTachesEnCours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.NbrTachesRetard)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.DelaiMoyen)
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+

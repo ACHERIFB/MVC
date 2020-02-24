@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Ciqual.Models.Famille>
+
+@{
+    ViewData["Title"] = "Familles";
+}
+
+<h1>Familles</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["TriParId"]" >
+                    @Html.DisplayNameFor(model => model.IdFamille)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["TriParNom"]" Title="Trier par ordre alphabetique">
+                    @Html.DisplayNameFor(model => model.Nom)
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdFamille)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+
+        </tr>
+}
+    </tbody>
+</table>

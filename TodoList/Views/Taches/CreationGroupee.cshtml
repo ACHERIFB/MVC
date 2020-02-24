@@ -1,0 +1,54 @@
+﻿@model List<TodoList.Models.Tache>
+
+@{
+    ViewData["Title"] = "Creation Groupee";
+}
+
+<h1>Creation Groupee</h1>
+@if (Model == null)
+{
+    <form asp-action="InitSaisie">
+        <label>Nombre de tâches à créer : </label>
+        <input type="number" name="nombreTache" min="0" />
+        <input type="submit" class="btn btn-success" value="Créer" />
+    </form>
+}
+@if (Model != null)
+{
+    <form asp-action="CreationGroupee">
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model[0].Description)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model[0].DateEcheance)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Count(); i++)
+                        {
+                            <tr>
+                                <td>
+                                    <textarea asp-for="@Model[i].Description" class="form-control"></textarea>
+                                </td>
+                                <td>
+                                    <input asp-for="@Model[i].DateEcheance" class="form-control" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-success" value="Enregistrer" />
+    </form>
+}
+
+<p>
+    <a asp-action="Index">Retour à la liste</a>
+</p>

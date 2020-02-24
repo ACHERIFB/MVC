@@ -1,0 +1,59 @@
+﻿@model Ciqual.Models.FamillesAlim
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<form asp-controller="Aliments" asp-action="Index" method="get">
+    <p>
+        <span>Famille</span>
+        <select name="id" asp-items="@(new SelectList(Model.Familles,"IdFamille","Nom",ViewBag.IdFamille))">
+        </select>
+        <input type="submit" value="Filtrer" />
+        <input type="submit" asp-action="index" value="AnnulerFiltre" />
+    </p>
+</form>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AlimentsConsti.First().IdAliment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlimentsConsti.First().Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlimentsConsti.First().NbrConsti)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.AlimentsConsti)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdAliment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NbrConsti)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdAliment">&#x1F589</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdAliment">&#x1F5B9</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdAliment">&#x1F5D1</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
